@@ -12,8 +12,16 @@ import {
     CreateProductInput,
     createProductScheam,
     createProductSchema,
+    deleteProductSchema,
+    getProductSchema,
+    updateProductSchema,
 } from "./schema/product.schema.ts";
-import { createProductHandler } from "./controllers/product.controller.ts";
+import {
+    createProductHandler,
+    DeleteProductHanlder,
+    getProdcutHanlder,
+    UpdateProductHandler,
+} from "./controllers/product.controller.ts";
 function routes(app: Express) {
     app.get("/healthcheck", (req: Request, res: Response) => {
         res.sendStatus(200);
@@ -30,6 +38,21 @@ function routes(app: Express) {
         "/api/Product",
         [RequireUser, Validate(createProductSchema)],
         createProductHandler,
+    );
+    app.get(
+        "/api/Product/:ProductId",
+        Validate(getProductSchema),
+        getProdcutHanlder,
+    );
+    app.put(
+        "/api/Product/:ProductId",
+        [RequireUser, Validate(updateProductSchema)],
+        UpdateProductHandler,
+    );
+    app.delete(
+        "/api/Product/:ProductId",
+        [RequireUser, Validate(deleteProductSchema)],
+        DeleteProductHanlder,
     );
 }
 export default routes;
