@@ -53,7 +53,7 @@ export const DeleteProductHanlder = async (
 ) => {
     const userId = res.locals.user?._id;
     const productId = req.params.ProductId;
-    const Product = await FindProduct({ productId });
+    const Product = await FindProduct({ ProductId: productId });
     if (!Product) {
         res.sendStatus(404);
         return;
@@ -63,7 +63,7 @@ export const DeleteProductHanlder = async (
         return;
     }
     try {
-        await DeleteProduct({ productId });
+        await DeleteProduct({ ProductId: productId });
         res.status(200).send("Product deleted");
     } catch (error) {
         console.log("Error while deleting  Product : ", error);
