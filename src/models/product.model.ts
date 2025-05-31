@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import { UserDocument } from "./user.model.ts";
-import { defaults } from "lodash";
+import { defaults, uniqueId } from "lodash";
+import { customAlphabet } from "nanoid";
+const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz0123456789", 10);
 
 export interface ProductDocument extends mongoose.Document {
     User: UserDocument["_id"];
@@ -8,11 +10,19 @@ export interface ProductDocument extends mongoose.Document {
     image: string;
     price: number;
     description: string;
-    createdAt: Date;
     UpdatedAt: Date;
+    createdAt: Date;
 }
 const ProductSchema = new mongoose.Schema(
     {
+        ProductId: {
+            type: String,
+            required: true,
+            unique: true,
+            default: () => {
+                return `Product_${nanoid()}`;
+            },
+        },
         User: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
@@ -34,6 +44,6 @@ const ProductSchema = new mongoose.Schema(
     },
     { timestamps: true },
 );
-console.log("Is this Logged?");
+
 const ProductModel = mongoose.model("Product", ProductSchema);
 export default ProductModel;
