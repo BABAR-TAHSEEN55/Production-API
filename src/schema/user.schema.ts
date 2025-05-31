@@ -31,9 +31,9 @@ export const createUserSchema = z
 
 });
 
-export type UserCreateInput = TypeOf<typeof createUserSchema>;
 
-export const CreateUserScehemBody = z.object({
-  body: createUserSchema,
-});
+// export const CreateUserScehemBody = z.object({
+//   body: createUserSchema,
+// });
+export type UserCreateInput = TypeOf<typeof createUserSchema>;
 export type CreateUserIN = z.infer<typeof createUserSchema>;
