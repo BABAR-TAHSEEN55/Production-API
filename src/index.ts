@@ -11,8 +11,9 @@ const app = express();
 app.use(express.json());
 app.use(helmet());
 app.use(DeserializeUser); // This is going to be called on every endPoint
-app.listen(port | 7000, async () => {
-  logger.info(`Server started sucessfully at ${port}`);
-  await DatabaseConnection();
-  routes(app);
+app.listen(port || 7000, async () => {
+    logger.info(`Server started sucessfully at ${port}`);
+    await DatabaseConnection();
+    routes(app);
 });
+//TODO : Here Async doesn't Work
