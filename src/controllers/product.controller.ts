@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import {
     createProductInput,
+    deleteProductInput,
     getProductInput,
     UpdateProductInput,
 } from "../schema/product.schema.ts";
@@ -10,66 +11,74 @@ import {
     FindProduct,
     FindProductAndUpdate,
 } from "../services/product.service.ts";
-
-export const CreateProductHandler = async (
+import ProductModel from "../models/product.model.ts";
+export const createProductHandler = async (
     req: Request<{}, {}, createProductInput["body"]>,
     res: Response,
 ) => {
-    const userId = res.locals.user._id;
-    console.log("this is UserId Prodcut : ", userId);
-    const body = req.body;
-    try {
-        const product = await CreateProduct({ ...body, User: userId });
-        res.send(product);
-    } catch (error) {
-        console.log("Error while Create Product : ", error);
-    }
+    console.log("Is this routed hit?");
+    //NOTE : Why can't i pass the body direclty?
+    //Cuz it exepcts a freakin obj you noob
+    const userId = res.locals.user?._id;
+
+    const Product = await CreateProduct({
+        ...req.body,
+        User: userId,
+    }); // NOTE : This is spread operator I am attaching userId to it
+    res.send(Product);
 };
 export const UpdateProductHandler = async (
-    req: Request<UpdateProductInput["params"], {}, {}>,
+    req: Request<UpdateProductInput["params"]>,
     res: Response,
 ) => {
-    const userId = res.locals.user._id;
-    const ProductId = req.params.productId;
-    const update = req.body;
-    const product = await FindProduct({ ProductId });
-    if (!product) {
+    const userId = res.locals.user?._id;
+    const productId = req.params.ProductId;
+    const Product = await FindProduct({ productId });
+    if (!Product) {
         res.sendStatus(404);
         return;
     }
-    if (product.User != userId) {
+    if (Product.User != userId) {
         res.sendStatus(403);
         return;
     }
-    const updateProduct = await FindProductAndUpdate({ ProductId }, update, {
+    const UpdatedProduct = await FindProductAndUpdate({ productId }, req.body, {
         new: true,
     });
-    res.send({ updateProduct });
-    console.log("This is the Product Id : ", ProductId);
+    res.send(UpdatedProduct);
 };
-export const DeleteProductHandler = async (req: Request, res: Response) => {
-    const userId = res.locals.user._id;
-    const ProductId = req.params.productId;
-    const product = await FindProduct({ ProductId });
-    if (!product) {
+export const DeleteProductHanlder = async (
+    req: Request<deleteProductInput["params"]>,
+    res: Response,
+) => {
+    const userId = res.locals.user?._id;
+    const productId = req.params.ProductId;
+    const Product = await FindProduct({ productId });
+    if (!Product) {
         res.sendStatus(404);
         return;
     }
-    if (product.User != userId) {
+    if (Product.User != userId) {
         res.sendStatus(403);
         return;
     }
-    const deleteProduct = await DeleteProduct({ ProductId });
-    return res.sendStatus(200); //FIXME: This might cause error
+    try {
+        await DeleteProduct({ productId });
+        res.status(200).send("Product deleted");
+    } catch (error) {
+        console.log("Error while deleting  Product : ", error);
+    }
 };
-export const GetProductHanlder = async (
+export const getProdcutHanlder = async (
     req: Request<getProductInput["params"]>,
     res: Response,
 ) => {
-    const ProductId = req.params.productId;
-    const Product = await FindProduct({ ProductId });
-    if (!Product) {
-        res.sendStatus(403).send({ Message: "Unable to retrieve the Product" });
+    const userId = res.locals.user?._id;
+    const productId = req.params.ProductId;
+    try {
+        const Product = await FindProduct({ ProductId: productId });
+        res.status(200).send(Product);
+    } catch (error) {
+        res.status(404).send("Cannot find Product");
     }
-    res.send(Product);
 };
