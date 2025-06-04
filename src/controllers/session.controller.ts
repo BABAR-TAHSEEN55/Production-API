@@ -3,7 +3,7 @@ import { ValidatePassword } from "../services/user.service";
 import { CreateSession, FindAllSessions } from "../services/session.service";
 import { SignJwt } from "../utils/jwt.utils";
 import config from "config";
-import { UpdateSession } from "../services/session.service.ts";
+import { UpdateSession } from "../services/session.service";
 export const CreateUserSessionHanlder = async (req: Request, res: Response) => {
     // Validate Users Password
     // // Req.body container the Password , email no need to destructure and you can't destructure as well

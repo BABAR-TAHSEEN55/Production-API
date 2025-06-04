@@ -1,5 +1,5 @@
 import { FilterQuery } from "mongoose";
-import ProductModel, { ProductDocument } from "../models/product.model.ts";
+import ProductModel, { ProductDocument } from "../models/product.model";
 import { QueryOptions } from "mongoose";
 
 import { UpdateQuery } from "mongoose";

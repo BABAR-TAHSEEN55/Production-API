@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { UserDocument } from "./user.model.ts";
+import { UserDocument } from "./user.model";
 import { defaults, uniqueId } from "lodash";
 import { customAlphabet } from "nanoid";
 const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz0123456789", 10);

@@ -4,13 +4,13 @@ import {
     deleteProductInput,
     getProductInput,
     UpdateProductInput,
-} from "../schema/product.schema.ts";
+} from "../schema/product.schema";
 import {
     CreateProduct,
     DeleteProduct,
     FindProduct,
     FindProductAndUpdate,
-} from "../services/product.service.ts";
+} from "../services/product.service";
 import ProductModel from "../models/product.model.ts";
 export const createProductHandler = async (
     req: Request<{}, {}, createProductInput["body"]>,
