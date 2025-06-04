@@ -7,7 +7,7 @@ import { CreateSessionScheam } from "./schema/session.schema";
 import { getUserSessionsHandler } from "./controllers/session.controller";
 import { RequireUser } from "./middlewares/RequireUser";
 import { UpdateSession } from "./services/session.service.ts";
-import { DeleteSessionHandler } from "./controllers/session.controller.ts";
+import { DeleteSessionHandler } from "./controllers/session.controller";
 import {
     CreateProductInput,
     createProductScheam,
@@ -15,13 +15,13 @@ import {
     deleteProductSchema,
     getProductSchema,
     updateProductSchema,
-} from "./schema/product.schema.ts";
+} from "./schema/product.schema";
 import {
     createProductHandler,
     DeleteProductHanlder,
     getProdcutHanlder,
     UpdateProductHandler,
-} from "./controllers/product.controller.ts";
+} from "./controllers/product.controller";
 function routes(app: Express) {
     app.get("/healthcheck", (req: Request, res: Response) => {
         res.sendStatus(200);
