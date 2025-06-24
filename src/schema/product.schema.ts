@@ -55,7 +55,7 @@ const payload = {
         }),
         description: string({
             required_error: "Description is required",
-        }).min(80, "Description should at least contain 80 characters"),
+        }).min(10, "Description should at least contain 10 characters"),
         image: string({
             required_error: "Image is required",
         }),
