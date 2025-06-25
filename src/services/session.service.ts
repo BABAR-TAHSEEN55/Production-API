@@ -37,10 +37,10 @@ export const ReIssueRefreshToken = async ({
     if (!decode && get(decode, "_id")) return false;
     //Checking Session related
     const session = await SesionModel.findById(get(decode, "_id"));
-    console.log("This is the Service Session : ", session);
+    // console.log("This is the Service Session : ", session);
     if (!session || !session.valid) return false;
     const user = await FindUser({ _id: session.User });
-    console.log("User:", user);
+    // console.log("User:", user);
     if (!user) return false;
 
     const accessToken = SignJwt(

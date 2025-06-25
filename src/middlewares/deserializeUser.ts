@@ -19,7 +19,7 @@ export const DeserializeUser = async (
         "",
     );
     // const refreshToken = get(req, "headers.x-refresh"); // Retrieving Refresh Token
-    console.log(req.headers);
+    // console.log(req.headers);
     // console.log(accessToken);
     if (!accessToken) {
         // why !?

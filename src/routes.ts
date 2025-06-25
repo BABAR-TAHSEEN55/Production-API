@@ -35,8 +35,8 @@ function routes(app: Express) {
     app.get("/api/sessions", RequireUser, getUserSessionsHandler);
     app.delete("/api/sessions", RequireUser, DeleteSessionHandler);
     app.post(
-        "/api/Product",
-        [RequireUser, Validate(createProductSchema)],
+        "/api/product",
+        Validate(createProductSchema),
         createProductHandler,
     );
     app.get(

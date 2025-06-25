@@ -12,11 +12,12 @@ import {
     FindProductAndUpdate,
 } from "../services/product.service";
 import ProductModel from "../models/product.model.ts";
+
 export const createProductHandler = async (
     req: Request<{}, {}, createProductInput["body"]>,
     res: Response,
 ) => {
-    console.log("Is this routed hit?");
+    // console.log("Is this routed hit?");
     //NOTE : Why can't i pass the body direclty?
     //Cuz it exepcts a freakin obj you noob
     const userId = res.locals.user?._id;
@@ -32,19 +33,28 @@ export const UpdateProductHandler = async (
     res: Response,
 ) => {
     const userId = res.locals.user?._id;
+    console.log("This is UserId : ", userId);
     const productId = req.params.ProductId;
-    const Product = await FindProduct({ productId });
+    console.log("This is ProductId : ", productId);
+    const Product = await FindProduct({ ProductId: productId });
     if (!Product) {
         res.sendStatus(404);
         return;
     }
-    if (Product.User != userId) {
+    if (String(Product.User) != userId) {
+        //NOTE : Product.User is Mongoose Id so it needs to be converted into string
         res.sendStatus(403);
         return;
     }
-    const UpdatedProduct = await FindProductAndUpdate({ productId }, req.body, {
-        new: true,
-    });
+    const UpdatedProduct = await FindProductAndUpdate(
+        //NOTE : It should match with the Model Defined names
+        { ProductId: productId },
+        req.body,
+        {
+            new: true,
+        },
+    );
+    console.log("UpdatedProduct : ", UpdatedProduct);
     res.send(UpdatedProduct);
 };
 export const DeleteProductHanlder = async (
@@ -58,7 +68,7 @@ export const DeleteProductHanlder = async (
         res.sendStatus(404);
         return;
     }
-    if (Product.User != userId) {
+    if (String(Product.User) != userId) {
         res.sendStatus(403);
         return;
     }

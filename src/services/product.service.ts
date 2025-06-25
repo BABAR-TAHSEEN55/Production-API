@@ -11,7 +11,7 @@ type ProductInput = Pick<
 export const CreateProduct = async (input: ProductInput) => {
     try {
         const product = await ProductModel.create(input);
-        console.log("This is newly Created Product : ", product);
+        // console.log("This is newly Created Product : ", product);
         return product;
     } catch (error) {
         console.log("Error during creation of Product : ", error);

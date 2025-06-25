@@ -74,6 +74,6 @@ export const DeleteSessionHandler = async (req: Request, res: Response) => {
     // await;
     //note: Not going to delete the session but going to make the valid as false
     await UpdateSession({ _id: sessionId }, { valid: false });
-    console.log("This is Session of User : ", sessionId);
+    // console.log("This is Session of User : ", sessionId);
     res.status(200).send({ accessToken: null, refreshToken: null });
 };

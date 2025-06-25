@@ -14,7 +14,7 @@ export const SignJwt = (
 export const VerifyJwt = (token: string) => {
   try {
     const decode = jwt.verify(token, publickey);
-    console.log("This is Decode from Utils : ", decode);
+    // console.log("This is Decode from Utils : ", decode);
     return {
       valid: true,
       expired: false,

@@ -31,7 +31,6 @@ const UserSchema = new mongoose.Schema<UserDocument>(
 //Adding a Pre-Save hook , in case data base is compromised ,Users passwords  are not leaked
 UserSchema.pre("save", async function (next) {
     let user = this as UserDocument;
-    console.log("This is the best NEovim COnfgi");
     if (!user.isModified("password")) {
         // Avoids Re-Hashing of Password if the password is already hashed
         return next();
