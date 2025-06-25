@@ -4,8 +4,8 @@ import logger from "./utils/logger";
 import DatabaseConnection from "./utils/connect";
 import helmet from "helmet";
 import { DeserializeUser } from "./middlewares/deserializeUser";
-import CreateServer from "./utils/server.ts";
-import { StartMetricsServer } from "./utils/metrics.ts";
+import CreateServer from "./utils/server";
+import { StartMetricsServer } from "./utils/metrics";
 const port = config.get<number>("port");
 //It takes a generic of type number for port
 

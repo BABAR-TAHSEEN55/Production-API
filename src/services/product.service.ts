@@ -3,7 +3,7 @@ import ProductModel, { ProductDocument } from "../models/product.model";
 import { QueryOptions } from "mongoose";
 
 import { UpdateQuery } from "mongoose";
-import { DataBaseResponseTimeHistogram } from "../utils/metrics.ts";
+import { DataBaseResponseTimeHistogram } from "../utils/metrics";
 
 type ProductInput = Pick<
     ProductDocument,

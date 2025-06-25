@@ -6,11 +6,9 @@ import { CreateUserSessionHanlder } from "./controllers/session.controller";
 import { CreateSessionScheam } from "./schema/session.schema";
 import { getUserSessionsHandler } from "./controllers/session.controller";
 import { RequireUser } from "./middlewares/RequireUser";
-import { UpdateSession } from "./services/session.service.ts";
+import { UpdateSession } from "./services/session.service";
 import { DeleteSessionHandler } from "./controllers/session.controller";
 import {
-    CreateProductInput,
-    createProductScheam,
     createProductSchema,
     deleteProductSchema,
     getProductSchema,

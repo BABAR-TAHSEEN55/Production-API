@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { get } from "lodash"; // This is going to make it easier for acessing a  property we dont know if it exists
 import { VerifyJwt } from "../utils/jwt.utils";
-import { ReIssueRefreshToken } from "../services/session.service.ts";
+import { ReIssueRefreshToken } from "../services/session.service";
 
 export const DeserializeUser = async (
     req: Request,

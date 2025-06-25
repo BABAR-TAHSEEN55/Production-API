@@ -1,11 +1,11 @@
 import { FilterQuery, UpdateQuery } from "mongoose";
 import SesionModel, { SessionDocument } from "../models/session.model";
-import { SignJwt, VerifyJwt } from "../utils/jwt.utils.ts";
+import { SignJwt, VerifyJwt } from "../utils/jwt.utils";
 
 import config from "config";
 
 import { get } from "lodash"; // This is going to make it easier for acessing a  property we dont know if it exists
-import { FindUser } from "./user.service.ts";
+import { FindUser } from "./user.service";
 
 export const CreateSession = async (userId: string, UserAgent: string) => {
     const session = await SesionModel.create({
@@ -51,5 +51,5 @@ export const ReIssueRefreshToken = async ({
 
         { expiresIn: config.get("accessTokenttl") },
     );
-    return accessToken
+    return accessToken;
 };

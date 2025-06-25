@@ -5,7 +5,7 @@ import responseTime from "response-time";
 import { DeserializeUser } from "../middlewares/deserializeUser";
 
 import { Request, Response } from "express";
-import { RestResponseTimeHistogram } from "./metrics.ts";
+import { RestResponseTimeHistogram } from "./metrics";
 const CreateServer = () => {
     const app = express();
     app.use(express.json());

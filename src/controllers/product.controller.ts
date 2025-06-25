@@ -11,7 +11,7 @@ import {
     FindProduct,
     FindProductAndUpdate,
 } from "../services/product.service";
-import ProductModel from "../models/product.model.ts";
+import ProductModel from "../models/product.model";
 
 export const createProductHandler = async (
     req: Request<{}, {}, createProductInput["body"]>,

@@ -1,7 +1,7 @@
 import express from "express";
 import client from "prom-client";
 import { Request, Response } from "express";
-import logger from "./logger.ts";
+import logger from "./logger";
 
 const app = express();
 const METRIX_PORT = 9100;
