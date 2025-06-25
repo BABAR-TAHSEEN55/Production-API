@@ -3,17 +3,24 @@ import ProductModel, { ProductDocument } from "../models/product.model";
 import { QueryOptions } from "mongoose";
 
 import { UpdateQuery } from "mongoose";
+import { DataBaseResponseTimeHistogram } from "../utils/metrics.ts";
 
 type ProductInput = Pick<
     ProductDocument,
     "title" | "description" | "image" | "price" | "User"
 >;
 export const CreateProduct = async (input: ProductInput) => {
+    const MetricsLabels = {
+        operations: "CreateProduct",
+    };
+    const Timer = DataBaseResponseTimeHistogram.startTimer();
     try {
         const product = await ProductModel.create(input);
         // console.log("This is newly Created Product : ", product);
+        Timer({ ...MetricsLabels, success: "true" });
         return product;
     } catch (error) {
+        Timer({ ...MetricsLabels, success: "false" });
         console.log("Error during creation of Product : ", error);
     }
 };
@@ -33,3 +40,4 @@ export const FindProductAndUpdate = (
 export const DeleteProduct = (query: FilterQuery<ProductDocument>) => {
     return ProductModel.deleteOne(query);
 };
+//TODO : For converting MilliSeconds -> Seconds ? Divide or Mutliply
