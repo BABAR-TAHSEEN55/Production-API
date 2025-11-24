@@ -1,145 +1,227 @@
-Production API
+# **Production API**
 
-A TypeScript based REST API using Express and Mongoose. This repository contains a modular codebase focused on user authentication, session management, and product resource handling. The codebase is configured for local development, testing, building and containerization.
+A **TypeScript-based REST API** built using **Express** and **Mongoose**, designed with modular architecture and production-ready tooling.
+This API focuses on **user authentication**, **session management**, and a **Product CRUD workflow**, along with validation, metrics, Docker support, and testing.
 
-## Key features
+---
 
-1. JSON web token based authentication with access token and refresh token
-2. Persistent session management stored in MongoDB
-3. Product resource create read update delete workflow with ownership checks
-4. Structured validation using Zod schemas
-5. Basic metrics endpoint via a separate metrics server
-6. Docker friendly build output in the `dist` directory
+## ⭐ **Key Features**
 
-## Technology stack
+1. **JWT Authentication** using access & refresh tokens
+2. **Persistent session management** stored in MongoDB
+3. **Product CRUD operations** with ownership & authorization checks
+4. **Request validation** via **Zod schemas**
+5. **Prometheus-style metrics endpoint** (separate metrics server)
+6. **Docker-ready build output** in `dist/` directory
+7. **Modular service-layer architecture**
 
-1. Node and TypeScript
-2. Express for HTTP routing
-3. Mongoose for MongoDB models
-4. Zod for data validation
-5. Pino for structured logging
-6. Jest and Supertest for tests
-7. pnpm for package management
-8. Docker for container image
+---
 
-## Requirements
+## 🛠 **Tech Stack**
 
-1. Node version compatible with the project
-2. pnpm installed globally or use the package manager of your choice
-3. MongoDB instance accessible with credentials
-4. Environment variables configured
+- **Node.js + TypeScript**
+- **Express** (Routing)
+- **Mongoose** (MongoDB ODM)
+- **Zod** (Schema validation)
+- **Pino** (Structured logging)
+- **Jest + Supertest** (Testing)
+- **pnpm** (Package manager)
+- **Docker** (Containerization)
 
-## Quick start
+---
 
-1. Clone the repository to your machine.
-2. Create a file named `env` or use your environment management flow to provide required variables.
-3. Install dependencies
+## 📦 **Requirements**
 
-Use the following command in the project root
-`pnpm install`
+Before running the project:
 
-4. Run the development server
+1. Node.js (compatible version)
+2. `pnpm` globally installed (optional, you can use npm/yarn)
+3. A running **MongoDB instance**
+4. Required **environment variables** configured (see below)
 
-Use the following command in the project root
-`pnpm run dev`
+---
 
-5. Build for production
+## 🚀 **Quick Start**
 
-Use the following command in the project root
-`pnpm run build`
+### **1. Clone the repository**
 
-6. Run tests
+```bash
+git clone <repo-url>
+cd <project-folder>
+```
 
-Use the following command in the project root
-`pnpm test`
+### **2. Create an environment file**
 
-## Environment variables
+Create a `.env` file or provide variables via your environment.
 
-Provide the following values in your environment or a local file loaded by `dotenv`
+### **3. Install dependencies**
 
-1. `MONGODB_USER` database account name
-2. `MONGODB_PASSWD` database account password
-3. `PUBLIC_KEY` RSA public key for token verification
-4. `PRIVATE_KEY` RSA private key for token signing
-5. `PORT` optional server port override
+```bash
+pnpm install
+```
 
-Configuration defaults are defined in `config/default.ts`
+### **4. Run the development server**
 
-## Docker
+```bash
+pnpm run dev
+```
 
-The repository includes a `Dockerfile` that produces a production artifact in the `dist` directory. Build the image using standard Docker tooling and run the container in a way that maps ports and sets environment variables appropriate to your environment.
+### **5. Build for production**
 
-The `Dockerfile` installs dependencies, builds the TypeScript output and expects the server entry file at `dist/src/index.js`
+```bash
+pnpm run build
+```
 
-## Project layout
+### **6. Run tests**
 
-1. `package.json` package and script definitions
-2. `Dockerfile` container build instructions
-3. `config` application configuration files
-4. `src/index.ts` application entry point
-5. `src/routes.ts` route registration and endpoint definitions
-6. `src/controllers` controllers for user session and product logic
-7. `src/services` business logic and database interactions
-8. `src/models` Mongoose schemas and models
-9. `src/schema` Zod request schemas for validation
-10. `src/middlewares` request middleware like authentication and validation
-11. `src/utils` helpers for logging JWT and server creation
-12. `src/__tests__` test coverage for API behavior
+```bash
+pnpm test
+```
 
-Examples of important files
-`package.json`
-`Dockerfile`
-`src/index.ts`
-`src/routes.ts`
+---
+
+## 🔐 **Environment Variables**
+
+The following variables must be provided:
+
+| Variable         | Description                          |
+| ---------------- | ------------------------------------ |
+| `MONGODB_USER`   | MongoDB username                     |
+| `MONGODB_PASSWD` | MongoDB password                     |
+| `PUBLIC_KEY`     | RSA public key (token verification)  |
+| `PRIVATE_KEY`    | RSA private key (token signing)      |
+| `PORT`           | (Optional) Application port override |
+
+Defaults are defined inside:
 `config/default.ts`
 
-## API highlights
+---
 
-1. Health probe endpoint
-   GET `/healthcheck` responds with status two hundred on success
+## 🐳 **Docker Instructions**
 
-2. User endpoints
-   POST `/api/users` create a new user
+The repository includes a production-ready `Dockerfile`.
 
-3. Session endpoints
-   POST `/api/sessions` create a session and return access token with refresh token
-   GET `/api/sessions` list active sessions for the current user
-   DELETE `/api/sessions` invalidate the current session
+### **Build the Docker image**
 
-4. Product endpoints
-   POST `/api/product` create a new product for authenticated user
-   GET `/api/Product/:ProductId` fetch a product by id
-   PUT `/api/Product/:ProductId` update a product owned by the authenticated user
-   DELETE `/api/Product/:ProductId` remove a product owned by the authenticated user
+```bash
+docker build -t production-api .
+```
 
-All API endpoints that require authentication rely on middleware that populates `res.locals.user` with the verified user object
+### **Run the container**
 
-## Testing notes
+```bash
+docker run -p 3000:3000 --env-file .env production-api
+```
 
-1. Unit and integration tests are implemented using Jest and Supertest
-2. Test configuration is present in `jest.config.js`
-3. Test files are located under `src/__tests__`
+The Docker workflow:
 
-## Logging and metrics
+- Installs dependencies
+- Compiles TypeScript → `dist/`
+- Starts server from `dist/src/index.js`
 
-1. Structured logs are produced using the logger in `src/utils/logger.ts`
-2. A lightweight metrics server is started from the application entry to expose Prometheus compatible metrics
+---
 
-## Common commands reference
+## 📁 **Project Structure**
 
-1. `pnpm install` install dependencies
-2. `pnpm run dev` start the development server with automatic rebuilds
-3. `pnpm run build` compile TypeScript to JavaScript into the `dist` directory
-4. `pnpm test` run the test suite
+```
+.
+├── package.json
+├── Dockerfile
+├── config/
+│   └── default.ts
+├── src/
+│   ├── index.ts
+│   ├── routes.ts
+│   ├── controllers/
+│   ├── services/
+│   ├── models/
+│   ├── schema/
+│   ├── middlewares/
+│   ├── utils/
+│   └── __tests__/
+└── dist/ (after build)
+```
 
-## Contribution and next steps
+### **Important Folders**
 
-1. Add missing type annotations where the code reports ambiguities
-2. Improve error handling for cases where requests hang due to missing payload values
-3. Add integration tests for authentication flows and product ownership checks
-4. Consider centralized request error formatter for consistent API responses
+| Folder         | Purpose                                            |
+| -------------- | -------------------------------------------------- |
+| `controllers/` | Endpoint controllers for users, sessions, products |
+| `services/`    | Business logic & DB operations                     |
+| `models/`      | Mongoose schemas & models                          |
+| `middlewares/` | Auth & validation middleware                       |
+| `schema/`      | Zod request validation                             |
+| `utils/`       | Logging, JWT helpers, server utilities             |
 
-## License and contact
+---
 
-1. Check `package.json` for license information
-2. For questions about the implementation or to request changes open an issue or a pull request in the repository
+## 🔥 **API Endpoints**
+
+### **Health Check**
+
+```
+GET /healthcheck
+```
+
+---
+
+### **User Endpoints**
+
+| Method | Route        | Description       |
+| ------ | ------------ | ----------------- |
+| POST   | `/api/users` | Create a new user |
+
+---
+
+### **Session Endpoints**
+
+| Method | Route           | Description                            |
+| ------ | --------------- | -------------------------------------- |
+| POST   | `/api/sessions` | Login → returns access + refresh token |
+| GET    | `/api/sessions` | List active sessions                   |
+| DELETE | `/api/sessions` | Logout (invalidate session)            |
+
+A valid session populates:
+`res.locals.user`
+
+---
+
+### **Product Endpoints**
+
+| Method | Route                     | Description                        |
+| ------ | ------------------------- | ---------------------------------- |
+| POST   | `/api/product`            | Create new product (requires auth) |
+| GET    | `/api/product/:productId` | Fetch product by ID                |
+| PUT    | `/api/product/:productId` | Update product (owner only)        |
+| DELETE | `/api/product/:productId` | Delete product (owner only)        |
+
+Ownership checks implemented at the service layer.
+
+---
+
+## 🧪 **Testing Notes**
+
+- **Jest + Supertest** used for unit & integration tests
+- Test configuration: `jest.config.js`
+- Test files located in:
+  `src/__tests__/`
+
+---
+
+## 📊 **Logging & Metrics**
+
+- **Pino logger** (`src/utils/logger.ts`)
+- **Prometheus-compatible metrics server** started from the application entry point
+
+---
+
+## 📘 **Common Commands**
+
+| Command          | Description                         |
+| ---------------- | ----------------------------------- |
+| `pnpm install`   | Install dependencies                |
+| `pnpm run dev`   | Start dev server with file watching |
+| `pnpm run build` | Compile TS → JS                     |
+| `pnpm test`      | Run test suite                      |
+
+---
