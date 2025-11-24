@@ -5,7 +5,7 @@ This API focuses on **user authentication**, **session management**, and a **Pro
 
 ---
 
-## ⭐ **Key Features**
+## **Key Features**
 
 1. **JWT Authentication** using access & refresh tokens
 2. **Persistent session management** stored in MongoDB
@@ -17,7 +17,7 @@ This API focuses on **user authentication**, **session management**, and a **Pro
 
 ---
 
-## 🛠 **Tech Stack**
+## **Tech Stack**
 
 - **Node.js + TypeScript**
 - **Express** (Routing)
@@ -30,7 +30,7 @@ This API focuses on **user authentication**, **session management**, and a **Pro
 
 ---
 
-## 📦 **Requirements**
+## **Requirements**
 
 Before running the project:
 
@@ -41,7 +41,7 @@ Before running the project:
 
 ---
 
-## 🚀 **Quick Start**
+## **Quick Start**
 
 ### **1. Clone the repository**
 
@@ -80,7 +80,7 @@ pnpm test
 
 ---
 
-## 🔐 **Environment Variables**
+## **Environment Variables**
 
 The following variables must be provided:
 
@@ -97,7 +97,7 @@ Defaults are defined inside:
 
 ---
 
-## 🐳 **Docker Instructions**
+## **Docker Instructions**
 
 The repository includes a production-ready `Dockerfile`.
 
@@ -121,7 +121,7 @@ The Docker workflow:
 
 ---
 
-## 📁 **Project Structure**
+## **Project Structure**
 
 ```
 .
@@ -155,7 +155,7 @@ The Docker workflow:
 
 ---
 
-## 🔥 **API Endpoints**
+## **API Endpoints**
 
 ### **Health Check**
 
@@ -199,7 +199,7 @@ Ownership checks implemented at the service layer.
 
 ---
 
-## 🧪 **Testing Notes**
+## **Testing Notes**
 
 - **Jest + Supertest** used for unit & integration tests
 - Test configuration: `jest.config.js`
@@ -208,14 +208,14 @@ Ownership checks implemented at the service layer.
 
 ---
 
-## 📊 **Logging & Metrics**
+## **Logging & Metrics**
 
 - **Pino logger** (`src/utils/logger.ts`)
 - **Prometheus-compatible metrics server** started from the application entry point
 
 ---
 
-## 📘 **Common Commands**
+## **Common Commands**
 
 | Command          | Description                         |
 | ---------------- | ----------------------------------- |
